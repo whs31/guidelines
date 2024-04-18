@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+ 
+variables:
+  NODE_VERSION: "18.14"
+ 
+build:
+  stage: build
+  tags: [dev-utils]
+  before_script:
+    - npm install -g n
+    - n $NODE_VERSION
+    - hash -r
+    - npm ci
+  script:
+    - npx quartz build
+  artifacts:
+    paths:
+      - public
+  cache:
+    paths:
+      - ~/.npm/
+    key: "${CI_COMMIT_REF_SLUG}-node-${CI_COMMIT_REF_NAME}"
+ 
+pages:
+  stage: deploy
+  script:
+    - echo "Deploying to GitLab Pages..."
+  artifacts:
+    paths:
+      - public

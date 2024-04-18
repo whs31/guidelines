@@ -1,0 +1,5 @@
+*.yml linguist-detectable=true
+*.json linguist-detectable=true
+*.xml linguist-detectable=true
+*.sh linguist-detectable=true
+*.md linguist-detectable=true
