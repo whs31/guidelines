@@ -9,21 +9,16 @@ build:
   stage: build
   tags: [dev-utils]
   before_script:
-    - npm install -g n
-    - n $NODE_VERSION
-    - hash -r
-    - npm ci
+    - rm -rf $HOME/.npm/_npx
+    - npm ci --cache .npm --prefer-offline
   script:
     - npx quartz build
   artifacts:
     paths:
       - public
-  cache:
-    paths:
-      - ~/.npm/
-    key: "${CI_COMMIT_REF_SLUG}-node-${CI_COMMIT_REF_NAME}"
  
 pages:
+  tags: [alse]
   stage: deploy
   script:
     - echo "Deploying to GitLab Pages..."
